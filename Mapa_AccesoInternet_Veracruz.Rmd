@@ -1,0 +1,82 @@
+---
+title: "Mapa_internet_Veracruz"
+author: "Edson John Sanchez G."
+date: "6/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Se cargan librerias. La paquetería sf es la que nos permitirá hacer los mapas.
+```{r}
+rm(list = ls())
+
+library(sf)
+library(ggplot2)
+library(tmap)
+library(tmaptools)
+library(leaflet)
+library(dplyr)
+library(readxl)
+```
+
+```{r}
+list.files()
+getwd()
+```
+# Se descarga el shape para Veracruz. Primero se crea el url y se ejecuta el comando para descargarlo.
+
+```{r}
+url <- "https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/geografia/inter_2015/Veracruz_de_Ignacio_de_la_Llave/702825004511_s.zip"
+
+if (!file.exists("conjunto_de_datos_iter_30CSV20.csv")) {
+  download.file(url,destfile = "Datos.zip",quiet = FALSE, mode="wb")}
+```
+
+# Se extrae la base de datos.
+```{r}
+unzip("Datos.zip")
+unzip("conjunto_de_datos/cgura_pei2015_ver.zip")
+```
+
+# Se importa la base de datos de los cuartiles de acceso a internet de los municipios de Veracruz.
+```{r}
+mydata <- read.csv("Cuartiles_internet.csv")
+```
+
+# Se importa el shape de Veracruz
+```{r}
+mymap <- st_read("30mun.shp")
+```
+```{r}
+mymap <- st_read("30mun.shp", stringsAsFactors = FALSE)
+```
+
+# Ambas bases de datos tienen dos variables que contiene datos con las que se pueden unir, solo se nombra igual. En mydata tenemos a NOM_MUN y en mymap NOMGEO
+```{r}
+
+```
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
